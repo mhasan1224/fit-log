@@ -5,7 +5,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <header className="border-b border-gray-200 bg-white">
+    <header className="sticky top-0 z-50 border-b border-[#1A2312] bg-black">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main Navbar */}
         <div className="flex min-h-18 items-center justify-between gap-3">
@@ -24,7 +24,7 @@ const Navbar = () => {
 
             <Link
               href="/"
-              className="shrink-0 font-oswald text-3xl tracking-tight text-gray-900"
+              className="shrink-0 font-oswald text-3xl tracking-tight text-white"
             >
               FITLOG
             </Link>
@@ -34,14 +34,14 @@ const Navbar = () => {
           <div className="hidden items-center gap-2 sm:flex">
             <Link
               href="/workout"
-              className="rounded-full bg-gray-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800"
+              className="rounded-full bg-gray-900 px-5 py-2.5 text-sm font-semibold text-[#CCFF00] transition hover:bg-gray-800"
             >
               Workout
             </Link>
 
             <Link
               href="/my-plan"
-              className="rounded-full px-5 py-2.5 text-sm font-semibold text-gray-600 transition hover:bg-gray-100 hover:text-gray-900"
+              className="rounded-full px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-100 hover:text-gray-900"
             >
               My Plan
             </Link>
@@ -49,11 +49,11 @@ const Navbar = () => {
 
           {/* Status Badges */}
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 rounded-full bg-[#ccff00] px-3 py-2 text-sm font-bold text-gray-900">
+            <div className="flex items-center gap-1.5 rounded-full bg-[#ccff00] px-3 py-2 text-sm font-bold text-White">
               <span>Plan</span>
             </div>
 
-            <div className="flex items-center gap-1.5 rounded-full border border-gray-300 px-3 py-2 text-sm font-semibold text-gray-700">
+            <div className="flex items-center gap-1.5 rounded-full border border-gray-300 px-3 py-2 text-sm font-semibold text-White">
               <span>Saved</span>
             </div>
           </div>

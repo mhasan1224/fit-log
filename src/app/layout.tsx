@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Oswald } from "next/font/google";
+import { Geist, Geist_Mono, Oswald, Inter  } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Shared/Navbar";
 
@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 const oswald = Oswald({
   subsets: ["latin"],
   variable: "--font-oswald-family",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {

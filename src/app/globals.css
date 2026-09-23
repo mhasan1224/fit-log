@@ -3,3 +3,8 @@
 @theme {
   --font-oswald: "Oswald", sans-serif;
 }
+
+body {
+  background-color: #000000;
+  color: white;
+}

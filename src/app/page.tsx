@@ -1,9 +1,10 @@
+import Hero from '@/components/Shared/Hero';
 import React from 'react';
 
 const page = () => {
   return (
     <div>
-      Home Page
+      <Hero />
     </div>
   );
 };
