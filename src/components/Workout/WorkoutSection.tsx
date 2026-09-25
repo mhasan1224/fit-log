@@ -1,8 +1,8 @@
-import getWorksout from "@/services/workout.services";
+import getWorkouts from "@/services/workout.services";
 import WorkoutCard from "./WorkoutCard";
 
 const WorkoutSection = async () => {
-  const workouts = await getWorksout();
+  const workouts = await getWorkouts();
 
   return (
     <section className="container mx-auto px-4 py-16">
