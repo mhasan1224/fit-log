@@ -1,9 +1,13 @@
+"use client"
+
 import Image from "next/image";
 import logo from "@/assets/logo.png";
 import Link from "next/link";
-import React from "react";
+import React, { use } from "react";
+import { useFitLog } from "@/providers/FitLogProvider";
 
 const Navbar = () => {
+  const {plannedWorkouts, savedWorkouts} = useFitLog();
   return (
     <header className="sticky top-0 z-50 border-b border-[#1A2312] bg-black">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -51,10 +55,12 @@ const Navbar = () => {
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1.5 rounded-full bg-[#ccff00] px-3 py-2 text-sm font-bold text-White">
               <span>Plan</span>
+              <span>{plannedWorkouts.length}</span>
             </div>
 
             <div className="flex items-center gap-1.5 rounded-full border border-gray-300 px-3 py-2 text-sm font-semibold text-White">
               <span>Saved</span>
+              <span>{savedWorkouts.length}</span>
             </div>
           </div>
         </div>
