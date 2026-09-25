@@ -142,24 +142,6 @@ const WorkoutCard = ({
           </div>
         </div>
       </Link>
-
-      <div className="flex items-center gap-3 border-t border-white/10 px-5 py-4">
-        <button
-          type="button"
-          onClick={handleAddToPlan}
-          className="flex-1 rounded-xl bg-[#ccff00] px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-[#b8e600]"
-        >
-          Add to Plan
-        </button>
-
-        <button
-          type="button"
-          onClick={handleSaveForLater}
-          className="rounded-xl border border-white/15 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/5"
-        >
-          Save
-        </button>
-      </div>
     </article>
   );
 };

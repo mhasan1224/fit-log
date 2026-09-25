@@ -5,6 +5,7 @@ import Navbar from "@/components/Shared/Navbar";
 import FitLogProvider from "@/providers/FitLogProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "@/components/Shared/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,13 +37,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-theme="light"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${oswald.variable}${inter.variable}h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <FitLogProvider>
           <Navbar />
           {children}
           <ToastContainer />
+          <Footer />
         </FitLogProvider>
       </body>
     </html>
