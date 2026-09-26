@@ -5,9 +5,8 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <section className="container mx-auto overflow-hidden bg-[#222630] my-8 rounded-3xl">
+    <section className="container mx-auto my-8 overflow-hidden rounded-3xl bg-[#222630]">
       <div className="grid items-center gap-8 px-5 py-10 sm:px-8 sm:py-14 lg:grid-cols-2 lg:gap-10 lg:px-12 lg:py-16">
-        {/* Left Content */}
         <div className="max-w-2xl">
           <p className="mb-4 font-oswald text-xl uppercase tracking-[0.2em] text-[#ccff00]">
             WORKOUT LIBRARY
@@ -21,21 +20,34 @@ const Hero = () => {
 
           <p className="mt-6 max-w-lg text-base leading-7 text-white sm:text-lg">
             FitLog is a dark, no-nonsense gym companion: pick a lift, lock it
-            into today&apos;ss plan, and watch the week&apos;s work add up.
+            into today&apos;s plan, and watch the week&apos;s work add up.
           </p>
 
-          {/* CTA */}
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
-              href="#workouts"
-              className="rounded-full bg-[#ccff00] px-6 py-3 text-sm font-bold text-gray-900 transition hover:bg-[#b8e600]"
+              href="#library"
+              className="inline-flex items-center gap-2 rounded-full bg-[#ccff00] px-6 py-3 text-sm font-bold text-gray-900 transition hover:bg-[#b8e600]"
             >
               BROWSE WORKOUTS
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 5v14" />
+                <path d="m19 12-7 7-7-7" />
+              </svg>
             </Link>
           </div>
         </div>
 
-        {/* Right Banner */}
         <div className="relative flex items-center justify-center">
           <Image
             src={Banner}

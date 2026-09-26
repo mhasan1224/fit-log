@@ -2,11 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import logo from "@/assets/logo.png";
 import { useFitLog } from "@/providers/FitLogProvider";
 
 const Navbar = () => {
+  const pathname = usePathname();
   const { plannedWorkouts, savedWorkouts } = useFitLog();
+
+  const isWorkoutActive = pathname === "/";
+  const isMyPlanActive = pathname === "/my-plan";
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#1A2312] bg-black">
@@ -35,14 +40,22 @@ const Navbar = () => {
           <div className="hidden items-center gap-2 sm:flex">
             <Link
               href="/"
-              className="rounded-full bg-gray-900 px-5 py-2.5 text-sm font-semibold text-[#CCFF00] transition hover:bg-gray-800"
+              className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
+                isWorkoutActive
+                  ? "bg-gray-900 text-[#CCFF00]"
+                  : "text-white hover:bg-gray-900"
+              }`}
             >
               Workout
             </Link>
 
             <Link
               href="/my-plan?tab=plan"
-              className="rounded-full px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-100 hover:text-gray-900"
+              className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
+                isMyPlanActive
+                  ? "bg-gray-900 text-[#CCFF00]"
+                  : "text-white hover:bg-gray-900"
+              }`}
             >
               My Plan
             </Link>
@@ -66,7 +79,7 @@ const Navbar = () => {
             >
               <span>Saved</span>
 
-              <span className="min-w-7 rounded-full bg-[#CCFF00] px-2 py-1 text-center text-xs font-bold text-black">
+              <span className="min-w-7 rounded-full border border-[#CCFF00] px-2 py-1 text-center text-xs font-bold text-[#CCFF00]">
                 {savedWorkouts.length}
               </span>
             </Link>
@@ -76,14 +89,22 @@ const Navbar = () => {
         <div className="flex gap-2 pb-3 sm:hidden">
           <Link
             href="/"
-            className="flex-1 rounded-full bg-gray-900 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-gray-800"
+            className={`flex-1 rounded-full px-4 py-2.5 text-center text-sm font-semibold transition ${
+              isWorkoutActive
+                ? "bg-gray-900 text-[#CCFF00]"
+                : "text-white hover:bg-gray-900"
+            }`}
           >
             Workout
           </Link>
 
           <Link
             href="/my-plan?tab=plan"
-            className="flex-1 rounded-full px-4 py-2.5 text-center text-sm font-semibold text-gray-600 transition hover:bg-gray-100 hover:text-gray-900"
+            className={`flex-1 rounded-full px-4 py-2.5 text-center text-sm font-semibold transition ${
+              isMyPlanActive
+                ? "bg-gray-900 text-[#CCFF00]"
+                : "text-white hover:bg-gray-900"
+            }`}
           >
             My Plan
           </Link>

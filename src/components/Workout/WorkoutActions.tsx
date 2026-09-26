@@ -9,7 +9,9 @@ interface WorkoutActionsProps {
 }
 
 const WorkoutActions = ({ workoutId }: WorkoutActionsProps) => {
-  const { addToPlan, saveForLater } = useFitLog();
+  const { addToPlan, saveForLater, plannedWorkouts } = useFitLog();
+
+  const isPlanFull = plannedWorkouts.length >= 5;
 
   const handleAddToPlan = () => {
     const result = addToPlan(workoutId);
@@ -48,7 +50,8 @@ const WorkoutActions = ({ workoutId }: WorkoutActionsProps) => {
       <button
         type="button"
         onClick={handleAddToPlan}
-        className="flex items-center justify-center gap-2 rounded-xl bg-[#ccff00] px-5 py-3 text-sm font-semibold text-black transition hover:bg-[#b8e600]"
+        disabled={isPlanFull}
+        className="flex items-center justify-center gap-2 rounded-xl bg-[#ccff00] px-5 py-3 text-sm font-semibold text-black transition hover:bg-[#b8e600] disabled:cursor-not-allowed disabled:bg-gray-700 disabled:text-gray-400 disabled:hover:bg-gray-700"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -60,8 +63,9 @@ const WorkoutActions = ({ workoutId }: WorkoutActionsProps) => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          aria-hidden="true"
         >
-          <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+          <rect width="18" height="18" x="3" y="4" rx="2" />
           <line x1="16" x2="16" y1="2" y2="6" />
           <line x1="8" x2="8" y1="2" y2="6" />
           <line x1="3" x2="21" y1="10" y2="10" />
@@ -69,7 +73,7 @@ const WorkoutActions = ({ workoutId }: WorkoutActionsProps) => {
           <line x1="10" x2="14" y1="16" y2="16" />
         </svg>
 
-        Add to today&apos;s plan
+        {isPlanFull ? "Plan Full" : "Add to today's plan"}
       </button>
 
       <button
@@ -87,6 +91,7 @@ const WorkoutActions = ({ workoutId }: WorkoutActionsProps) => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          aria-hidden="true"
         >
           <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
         </svg>
