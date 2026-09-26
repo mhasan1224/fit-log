@@ -14,6 +14,9 @@ const MyPlanContent = ({ workouts }: MyPlanContentProps) => {
   const { plannedWorkouts, savedWorkouts } = useFitLog();
 
   const [activeTab, setActiveTab] = useState<"today" | "saved">("today");
+  const [sortBy, setSortBy] = useState<"duration" | "calories" | "difficulty">(
+    "duration",
+  );
 
   const currentWorkoutIds =
     activeTab === "today" ? plannedWorkouts : savedWorkouts;
@@ -33,6 +36,27 @@ const MyPlanContent = ({ workouts }: MyPlanContentProps) => {
     (total, workout) => total + workout.caloriesBurned,
     0,
   );
+
+  const sortedWorkouts = [...currentWorkouts].sort((a, b) => {
+    if (sortBy === "duration") {
+      return a.duration - b.duration;
+    }
+
+    if (sortBy === "calories") {
+      return a.caloriesBurned - b.caloriesBurned;
+    }
+
+    const difficultyOrder = {
+      Beginner: 1,
+      Intermediate: 2,
+      Advanced: 3,
+    };
+
+    return (
+      difficultyOrder[a.difficulty as keyof typeof difficultyOrder] -
+      difficultyOrder[b.difficulty as keyof typeof difficultyOrder]
+    );
+  });
 
   return (
     <main className="min-h-screen bg-[#0e1015] px-4 py-8 text-white sm:px-8 lg:px-16">
@@ -104,26 +128,32 @@ const MyPlanContent = ({ workouts }: MyPlanContentProps) => {
 
           {/* Sort By */}
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-gray-400">
-              Sort By
-            </span>
+            <span className="text-xs font-medium text-gray-400">Sort By</span>
 
-            <select className="select select-sm w-36 rounded-xl border border-white/10 bg-[#14171f] text-xs font-medium text-white focus:border-[#ccff00] focus:outline-none">
-              <option>Duration</option>
-              <option>Calories</option>
-              <option>Difficulty</option>
+            <select
+              value={sortBy}
+              onChange={(event) =>
+                setSortBy(
+                  event.target.value as "duration" | "calories" | "difficulty",
+                )
+              }
+              className="select select-sm w-36 rounded-xl border border-white/10 bg-[#14171f] text-xs font-medium text-white focus:border-[#ccff00] focus:outline-none"
+            >
+              <option value="duration">Duration</option>
+              <option value="calories">Calories</option>
+              <option value="difficulty">Difficulty</option>
             </select>
           </div>
         </div>
 
         {/* Workout Card List */}
         <div className="mt-6 space-y-5">
-          {currentWorkouts.length > 0 ? (
-            currentWorkouts.map((workout) => (
+          {sortedWorkouts.length > 0 ? (
+            sortedWorkouts.map((workout) => (
               <WorkoutCard
                 key={workout.id}
                 workout={workout}
-                variant="plan"
+                variant={activeTab === "today" ? "plan" : "saved"}
               />
             ))
           ) : (

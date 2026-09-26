@@ -5,7 +5,7 @@ const WorkoutSection = async () => {
   const workouts = await getWorkouts();
 
   return (
-    <section className="container mx-auto px-4 py-16">
+    <section id="workouts" className="container mx-auto px-4 py-16">
       <div className="mb-10 text-center">
         <h2 className="font-oswald text-4xl uppercase tracking-wide text-white">
           THE LIBRARY

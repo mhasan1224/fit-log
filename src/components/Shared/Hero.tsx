@@ -21,13 +21,13 @@ const Hero = () => {
 
           <p className="mt-6 max-w-lg text-base leading-7 text-white sm:text-lg">
             FitLog is a dark, no-nonsense gym companion: pick a lift, lock it
-            into today's plan, and watch the week's work add up.
+            into today&apos;ss plan, and watch the week&apos;s work add up.
           </p>
 
           {/* CTA */}
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
-              href="/workout"
+              href="#workouts"
               className="rounded-full bg-[#ccff00] px-6 py-3 text-sm font-bold text-gray-900 transition hover:bg-[#b8e600]"
             >
               BROWSE WORKOUTS

@@ -51,15 +51,21 @@ const Navbar = () => {
           </div>
 
           {/* Status Badges */}
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 rounded-full bg-[#CCFF00] px-3 py-2 text-sm font-bold text-black">
+          <div className="flex items-center gap-5">
+            <div className="flex items-center gap-2 text-sm font-semibold text-white">
               <span>Plan</span>
-              <span>{plannedWorkouts.length}</span>
+
+              <span className="min-w-7 rounded-full bg-[#CCFF00] px-1 py-0.5 text-center text-xs font-bold text-black">
+                {plannedWorkouts.length}
+              </span>
             </div>
 
-            <div className="flex items-center gap-1.5 rounded-full border border-gray-300 px-3 py-2 text-sm font-semibold text-white">
+            <div className="flex items-center gap-2 text-sm font-semibold text-white">
               <span>Saved</span>
-              <span>{savedWorkouts.length}</span>
+
+              <span className="min-w-7 rounded-full border border-white px-1 py-0.5 text-center text-xs font-bold text-white">
+                {savedWorkouts.length}
+              </span>
             </div>
           </div>
         </div>

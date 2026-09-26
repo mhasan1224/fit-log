@@ -1,19 +1,18 @@
 "use client";
 
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface FitLogContextType {
   plannedWorkouts: number[];
   savedWorkouts: number[];
   completedWorkouts: number[];
+
   addToPlan: (workoutId: number) => "added" | "duplicate" | "limit";
   saveForLater: (workoutId: number) => "saved" | "duplicate" | "limit";
+
   removeFromPlan: (workoutId: number) => void;
+  removeFromSaved: (workoutId: number) => void;
+
   markAsDone: (workoutId: number) => void;
 }
 
@@ -30,9 +29,7 @@ const FitLogProvider = ({ children }: { children: React.ReactNode }) => {
       "fitlog-planned-workouts",
     );
 
-    const storedSavedWorkouts = localStorage.getItem(
-      "fitlog-saved-workouts",
-    );
+    const storedSavedWorkouts = localStorage.getItem("fitlog-saved-workouts");
 
     const storedCompletedWorkouts = localStorage.getItem(
       "fitlog-completed-workouts",
@@ -80,38 +77,41 @@ const FitLogProvider = ({ children }: { children: React.ReactNode }) => {
     );
   }, [completedWorkouts, isInitialized]);
 
-  const addToPlan = (workoutId: number): "added" | "duplicate" | "limit" => {
+  const addToPlan = (workoutId: number) => {
     if (plannedWorkouts.includes(workoutId)) {
-      return "duplicate";
+      return "duplicate" as const;
     }
 
     if (plannedWorkouts.length >= 5) {
-      return "limit";
+      return "limit" as const;
     }
 
     setPlannedWorkouts((prev) => [...prev, workoutId]);
 
-    return "added";
-  };
+    setCompletedWorkouts((prev) => prev.filter((id) => id !== workoutId));
 
-  const removeFromPlan = (workoutId: number) => {
-    setPlannedWorkouts((prev) =>
-      prev.filter((id) => id !== workoutId),
-    );
+    return "added" as const;
   };
-
-  const saveForLater = (workoutId: number): "saved" | "duplicate" | "limit" => {
+  const saveForLater = (workoutId: number) => {
     if (savedWorkouts.includes(workoutId)) {
-      return "duplicate";
+      return "duplicate" as const;
     }
 
     if (savedWorkouts.length >= 5) {
-      return "limit";
+      return "limit" as const;
     }
 
     setSavedWorkouts((prev) => [...prev, workoutId]);
 
-    return "saved";
+    return "saved" as const;
+  };
+
+  const removeFromPlan = (workoutId: number) => {
+    setPlannedWorkouts((prev) => prev.filter((id) => id !== workoutId));
+  };
+
+  const removeFromSaved = (workoutId: number) => {
+    setSavedWorkouts((prev) => prev.filter((id) => id !== workoutId));
   };
 
   const markAsDone = (workoutId: number) => {
@@ -133,6 +133,7 @@ const FitLogProvider = ({ children }: { children: React.ReactNode }) => {
         addToPlan,
         saveForLater,
         removeFromPlan,
+        removeFromSaved,
         markAsDone,
       }}
     >
