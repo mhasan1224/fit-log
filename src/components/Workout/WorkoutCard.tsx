@@ -161,7 +161,7 @@ const WorkoutCard = ({
             {workout.muscleGroups.map((muscleGroup) => (
               <span
                 key={muscleGroup}
-                className="rounded-full border border-[#ccff00]/20 bg-[#ccff00]/10 px-3 py-1 text-xs font-medium text-[#ccff00]"
+                className="rounded-full bg-[#ccff00] px-3 py-1 text-xs font-semibold text-black"
               >
                 {muscleGroup}
               </span>
@@ -173,7 +173,7 @@ const WorkoutCard = ({
           </h3>
 
           <p className="mt-2 line-clamp-2 text-sm leading-6 text-gray-400">
-            {workout.description}
+            {workout.equipment}
           </p>
 
           <div className="mt-5 flex flex-wrap items-center gap-4 border-t border-white/10 pt-4 text-sm text-gray-400">
