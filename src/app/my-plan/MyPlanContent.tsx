@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import WorkoutCard from "@/components/Workout/WorkoutCard";
 import { useFitLog } from "@/providers/FitLogProvider";
 import { IWorkout } from "@/types/workout.type";
@@ -12,11 +13,16 @@ interface MyPlanContentProps {
 
 const MyPlanContent = ({ workouts }: MyPlanContentProps) => {
   const { plannedWorkouts, savedWorkouts } = useFitLog();
+  const searchParams = useSearchParams();
 
-  const [activeTab, setActiveTab] = useState<"today" | "saved">("today");
-  const [sortBy, setSortBy] = useState<"duration" | "calories" | "difficulty">(
-    "duration",
-  );
+  const tabParam = searchParams.get("tab");
+
+  const [sortBy, setSortBy] = useState<
+    "duration" | "calories" | "difficulty"
+  >("duration");
+
+  const activeTab: "today" | "saved" =
+    tabParam === "saved" ? "saved" : "today";
 
   const currentWorkoutIds =
     activeTab === "today" ? plannedWorkouts : savedWorkouts;
@@ -61,7 +67,6 @@ const MyPlanContent = ({ workouts }: MyPlanContentProps) => {
   return (
     <main className="min-h-screen bg-[#0e1015] px-4 py-8 text-white sm:px-8 lg:px-16">
       <div className="mx-auto max-w-6xl">
-        {/* Header Section */}
         <header className="mb-8">
           <h1 className="font-oswald text-3xl font-bold uppercase tracking-wide text-white sm:text-4xl">
             MY PLAN
@@ -72,7 +77,6 @@ const MyPlanContent = ({ workouts }: MyPlanContentProps) => {
           </p>
         </header>
 
-        {/* Combined Metrics Card */}
         <div className="grid grid-cols-3 rounded-2xl border border-white/5 bg-[#14171f] p-6 text-left shadow-lg">
           <div className="pr-4">
             <p className="text-xs font-medium text-gray-400">Exercises</p>
@@ -99,12 +103,10 @@ const MyPlanContent = ({ workouts }: MyPlanContentProps) => {
           </div>
         </div>
 
-        {/* Controls Bar */}
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-          {/* Tabs */}
           <div className="inline-flex rounded-xl border border-white/5 bg-[#14171f] p-1">
-            <button
-              onClick={() => setActiveTab("today")}
+            <Link
+              href="/my-plan?tab=plan"
               className={`rounded-lg px-5 py-2 text-xs font-semibold transition-colors ${
                 activeTab === "today"
                   ? "bg-[#1f2430] text-[#ccff00]"
@@ -112,10 +114,10 @@ const MyPlanContent = ({ workouts }: MyPlanContentProps) => {
               }`}
             >
               Today&apos;s Plan
-            </button>
+            </Link>
 
-            <button
-              onClick={() => setActiveTab("saved")}
+            <Link
+              href="/my-plan?tab=saved"
               className={`rounded-lg px-5 py-2 text-xs font-semibold transition-colors ${
                 activeTab === "saved"
                   ? "bg-[#1f2430] text-[#ccff00]"
@@ -123,18 +125,22 @@ const MyPlanContent = ({ workouts }: MyPlanContentProps) => {
               }`}
             >
               Saved
-            </button>
+            </Link>
           </div>
 
-          {/* Sort By */}
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-gray-400">Sort By</span>
+            <span className="text-xs font-medium text-gray-400">
+              Sort By
+            </span>
 
             <select
               value={sortBy}
               onChange={(event) =>
                 setSortBy(
-                  event.target.value as "duration" | "calories" | "difficulty",
+                  event.target.value as
+                    | "duration"
+                    | "calories"
+                    | "difficulty",
                 )
               }
               className="select select-sm w-36 rounded-xl border border-white/10 bg-[#14171f] text-xs font-medium text-white focus:border-[#ccff00] focus:outline-none"
@@ -146,7 +152,6 @@ const MyPlanContent = ({ workouts }: MyPlanContentProps) => {
           </div>
         </div>
 
-        {/* Workout Card List */}
         <div className="mt-6 space-y-5">
           {sortedWorkouts.length > 0 ? (
             sortedWorkouts.map((workout) => (

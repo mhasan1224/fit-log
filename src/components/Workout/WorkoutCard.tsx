@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { toast } from "react-toastify";
 import { IWorkout } from "@/types/workout.type";
 import { useFitLog } from "@/providers/FitLogProvider";
 
@@ -16,8 +17,6 @@ const WorkoutCard = ({
   variant = "library",
 }: WorkoutCardProps) => {
   const {
-    addToPlan,
-    saveForLater,
     removeFromPlan,
     removeFromSaved,
     markAsDone,
@@ -26,33 +25,28 @@ const WorkoutCard = ({
 
   const isCompleted = completedWorkouts.includes(workout.id);
 
-  const handleAddToPlan = () => {
-    addToPlan(workout.id);
-  };
-
-  const handleSaveForLater = () => {
-    saveForLater(workout.id);
-  };
-
   const handleRemove = () => {
     if (variant === "plan") {
       removeFromPlan(workout.id);
+      toast.success(`${workout.name} removed from your plan.`);
     }
 
     if (variant === "saved") {
       removeFromSaved(workout.id);
+      toast.success(`${workout.name} removed from saved workouts.`);
     }
   };
 
   const handleMarkAsDone = () => {
     markAsDone(workout.id);
+    toast.success(`${workout.name} marked as done.`);
   };
 
   if (variant === "plan" || variant === "saved") {
     return (
       <article className="overflow-hidden rounded-2xl border border-white/10 bg-[#1b1e25]">
         <div className="flex flex-col md:flex-row">
-          <div className="relative h-56 w-full shrink-0 bg-[#222630] md:h-auto md:w-64">
+          <div className="relative h-56 w-full shrink-0 bg-[#222630] md:h-auto md:min-h-64 md:w-64">
             <Image
               src={workout.image}
               alt={workout.name}
@@ -62,7 +56,7 @@ const WorkoutCard = ({
             />
           </div>
 
-          <div className="flex flex-1 items-center justify-between gap-6 p-5 lg:p-6">
+          <div className="flex min-w-0 flex-1 flex-col justify-between gap-6 p-5 sm:p-6 md:flex-row md:items-center">
             <div className="min-w-0">
               <div className="flex flex-wrap gap-2">
                 {workout.muscleGroups.map((muscle) => (
@@ -101,10 +95,10 @@ const WorkoutCard = ({
               </div>
             </div>
 
-            <div className="flex shrink-0 items-center gap-3">
+            <div className="flex w-full shrink-0 flex-col gap-3 sm:flex-row md:w-auto md:flex-col lg:flex-row">
               <Link
                 href={`/workout/${workout.id}`}
-                className="rounded-xl border border-white/15 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/5"
+                className="flex items-center justify-center rounded-xl border border-white/15 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/5"
               >
                 View Details
               </Link>
@@ -123,7 +117,7 @@ const WorkoutCard = ({
                 type="button"
                 onClick={handleRemove}
                 aria-label={`Remove ${workout.name}`}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 text-xl text-gray-500 transition hover:border-red-400/30 hover:text-red-400"
+                className="flex h-10 w-full items-center justify-center rounded-xl border border-white/10 text-xl text-gray-500 transition hover:border-red-400/30 hover:text-red-400 sm:w-10"
               >
                 ×
               </button>
@@ -152,7 +146,7 @@ const WorkoutCard = ({
             {workout.muscleGroups.map((muscleGroup) => (
               <span
                 key={muscleGroup}
-                className="rounded-full bg-[#ccff00]/10 px-3 py-1 text-xs font-medium text-black"
+                className="rounded-full border border-[#ccff00]/20 bg-[#ccff00]/10 px-3 py-1 text-xs font-medium text-[#ccff00]"
               >
                 {muscleGroup}
               </span>
